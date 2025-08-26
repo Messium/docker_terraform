@@ -1,0 +1,8 @@
+ungrouped:
+  hosts:
+    foo-0:
+      ansible_host: 172.17.0.4
+    foo-1:
+      ansible_host: 172.17.0.5
+    foo-2:
+      ansible_host: 172.17.0.2

@@ -1,0 +1,13 @@
+---
+- name: testing connectivity
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: ping
+      ansible.builtin.ping:
+      register: ping_result
+
+    - name: display result
+      ansible.builtin.debug:
+        msg: "asdf {{ ping_result.ping }}"
+      when: ping_result is defined
