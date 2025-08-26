@@ -1,0 +1,19 @@
+{
+  "changed": false,
+  "msg": "failed to install emacs-nox",
+  "packages": [],
+  "stderr": "ERROR: unable to select packages:\n  so:libdbus-1.so.3 (no such package):\n    required by: emacs-nox-30.2-r0[so:libdbus-1.so.3]\n  so:libgmp.so.10 (no such package):\n    required by: emacs-nox-30.2-r0[so:libgmp.so.10]\n  so:libgnutls.so.30 (no such package):\n    required by: emacs-nox-30.2-r0[so:libgnutls.so.30]\n  so:libxml2.so.2 (no such package):\n    required by: emacs-nox-30.2-r0[so:libxml2.so.2]\n",
+  "stderr_lines": [
+    "ERROR: unable to select packages:",
+    "  so:libdbus-1.so.3 (no such package):",
+    "    required by: emacs-nox-30.2-r0[so:libdbus-1.so.3]",
+    "  so:libgmp.so.10 (no such package):",
+    "    required by: emacs-nox-30.2-r0[so:libgmp.so.10]",
+    "  so:libgnutls.so.30 (no such package):",
+    "    required by: emacs-nox-30.2-r0[so:libgnutls.so.30]",
+    "  so:libxml2.so.2 (no such package):",
+    "    required by: emacs-nox-30.2-r0[so:libxml2.so.2]"
+  ],
+  "stdout": "",
+  "stdout_lines": []
+}

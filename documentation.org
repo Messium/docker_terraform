@@ -1,0 +1,44 @@
+:PROPERTIES:
+:ID: c438f24c-081c-490e-b36a-83eab3cdbac8
+:END:
+#+TITLE: docker_terraform_ansible
+
+* DONE emacs problem in term
+emacs: Terminal type xterm-ghostty is not defined.
+If that is not the actual type of terminal you have,
+use the Bourne shell command 'TERM=...; export TERM' (C-shell:
+'setenv TERM ...') to specify the correct type.  It may be necessary
+to do 'unset TERMINFO' (C-shell: 'unsetenv TERMINFO') as well.
+
+Solution:
+
+#+BEGIN_SRC bash
+export TERM=xterm-256color
+#+END_SRC
+
+* DONE emacs error message installation
+{"changed": false, "msg": "failed to install emacs-nox", "packages": [], "stderr": "ERROR: unable to select packages:\n  so:libdbus-1.so.3 (no such package):\n    required by: emacs-nox-30.2-r0[so:libdbus-1.so.3]\n  so:libgmp.so.10 (no such package):\n    required by: emacs-nox-30.2-r0[so:libgmp.so.10]\n  so:libgnutls.so.30 (no such package):\n    required by: emacs-nox-30.2-r0[so:libgnutls.so.30]\n  so:libxml2.so.2 (no such package):\n    required by: emacs-nox-30.2-r0[so:libxml2.so.2]\n", "stderr_lines": ["ERROR: unable to select packages:", "  so:libdbus-1.so.3 (no such package):", "    required by: emacs-nox-30.2-r0[so:libdbus-1.so.3]", "  so:libgmp.so.10 (no such package):", "    required by: emacs-nox-30.2-r0[so:libgmp.so.10]", "  so:libgnutls.so.30 (no such package):", "    required by: emacs-nox-30.2-r0[so:libgnutls.so.30]", "  so:libxml2.so.2 (no such package):", "    required by: emacs-nox-30.2-r0[so:libxml2.so.2]"], "stdout": "", "stdout_lines": []}
+** TODO
+How to convert error msgs to json without jq jungling
+
+#+BEGIN_SRC json
+{
+  "changed": false,
+  "msg": "failed to install emacs-nox",
+  "packages": [],
+  "stderr": "ERROR: unable to select packages:\n  so:libdbus-1.so.3 (no such package):\n    required by: emacs-nox-30.2-r0[so:libdbus-1.so.3]\n  so:libgmp.so.10 (no such package):\n    required by: emacs-nox-30.2-r0[so:libgmp.so.10]\n  so:libgnutls.so.30 (no such package):\n    required by: emacs-nox-30.2-r0[so:libgnutls.so.30]\n  so:libxml2.so.2 (no such package):\n    required by: emacs-nox-30.2-r0[so:libxml2.so.2]\n",
+  "stderr_lines": [
+    "ERROR: unable to select packages:",
+    "  so:libdbus-1.so.3 (no such package):",
+    "    required by: emacs-nox-30.2-r0[so:libdbus-1.so.3]",
+    "  so:libgmp.so.10 (no such package):",
+    "    required by: emacs-nox-30.2-r0[so:libgmp.so.10]",
+    "  so:libgnutls.so.30 (no such package):",
+    "    required by: emacs-nox-30.2-r0[so:libgnutls.so.30]",
+    "  so:libxml2.so.2 (no such package):",
+    "    required by: emacs-nox-30.2-r0[so:libxml2.so.2]"
+  ],
+  "stdout": "",
+  "stdout_lines": []
+}
+#+END_SRC

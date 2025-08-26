@@ -16,6 +16,57 @@ resource "docker_image" "ubuntu" {
   name = "ubuntu:latest"
 }
 
+
+# WARNING: old no longer needed
+# resource "null_resource" "python_image_build" {
+#   provisioner "local-exec" {
+#     command = "docker buildx build -t mycustom/python:latest ."
+#   }
+# }
+
+# resource "docker_image" "openssh-server" { 
+#   name = "linuxserver/openssh-server:latest"
+#   # WARNING: old no longer needed
+#   # depends_on = [null_resource.python_image_build]
+# }
+
+
+resource "docker_image" "openssh-server" {
+  name = "openssh-linux"
+  # https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs/resources/image#build
+  build {
+    context = "."
+    tag     = ["openssh_server:develop"]
+    build_args = {
+      foo : "zoo"
+    }
+    label = {
+      author : "zoo"
+    }
+  }
+}
+
+resource "docker_container" "open_ssh_containers" { 
+  # count = 1
+  image = docker_image.openssh-server.image_id
+  name = "openssh_server"
+  env = [
+    "SUDO_ACCESS=true",
+    "PASSWORD_ACCESS=true",
+
+    "USER_NAME=linux",
+    "USER_PASSWORD=test",
+  ]
+  command = [
+    "sleep",
+    "infinity",
+  ]
+  ports {
+    internal = 2222
+    external = 2222
+  }
+}
+
 # Create a container
 resource "docker_container" "foo" {
   count = 3
@@ -36,6 +87,11 @@ resource "docker_container" "foo" {
 # output "docker_ip" {
 #   value = docker_container.foo[*].network_data[0].ip_address
 # }
+
+
+output "ssh_server" {
+  value = docker_container.open_ssh_containers.name
+}
 
 output "container_info" {
   value = [
