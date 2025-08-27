@@ -32,6 +32,13 @@
     # TODO: create a role
     # TODO: all in one install?
 
+    - name: Install ijq
+      become: true
+      community.general.apk:
+        name: ijq
+        state: present
+        repository: https://dl-cdn.alpinelinux.org/alpine/edge/testing/
+
     - name: Install lua (neovim dependency)
       become: true
       community.general.apk:
