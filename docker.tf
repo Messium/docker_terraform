@@ -13,8 +13,10 @@ provider "docker" {
 
 # Pulls the image
 resource "docker_image" "ubuntu" {
-  name = "ubuntu:latest"
+  name = "ubuntu:24.04"
 }
+
+# name = "ubuntu:latest"
 
 
 # WARNING: old no longer needed
@@ -32,6 +34,7 @@ resource "docker_image" "ubuntu" {
 
 
 resource "docker_image" "openssh-server" {
+  # https://docs.linuxserver.io/images/docker-openssh-server/
   name = "openssh-linux"
   # https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs/resources/image#build
   build {
@@ -46,7 +49,25 @@ resource "docker_image" "openssh-server" {
   }
 }
 
+# resource "docker_image" "ubuntu_sshd" {
+#   # https://docs.linuxserver.io/images/docker-openssh-server/
+#   name = "ubuntu-24.04"
+#   # https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs/resources/image#build
+#   build {
+#     context = "."
+#     tag = ["ubuntu:24.04"]
+#     build_args = {
+#       foo : "zoo"
+#     }
+#     label = {
+#       author : "zoo"
+#     }
+#   }
+# }
+
+
 resource "docker_container" "open_ssh_containers" { 
+  # https://docs.ansible.com/ansible/latest/collections/community/docker/docker_container_module.html
   # count = 1
   image = docker_image.openssh-server.image_id
   name = "openssh_server"
