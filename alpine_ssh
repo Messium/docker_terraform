@@ -1,0 +1,45 @@
+FROM alpine
+
+# setup ssh
+
+# add more args like user etc
+ARG ssh_pub_key
+# https://dev.to/yakovlev_alexey/running-ssh-in-an-alpine-docker-container-3lop#running-sshd
+RUN mkdir -p /root/.ssh
+RUN chmod 0700 /root/.ssh
+# RUN passwd -u root
+RUN echo "$ssh_pub_key" > /root/.ssh/authorized_keys
+RUN apk add openrc openssh
+# RUN ssh-keygen -A
+RUN echo -e "PasswordAuthentication no" >> /etc/ssh/sshd_config
+RUN mkdir -p /run/openrc
+RUN touch /run/openrc/softlevel
+
+
+RUN apk add --no-cache shadow
+RUN useradd -m -s /bin/zsh messium
+RUN mkdir -p /home/messium/.ssh
+RUN chmod 0700 /home/messium/.ssh
+RUN echo "$ssh_pub_key" > /home/messium/.ssh/authorized_keys
+RUN chown -R messium:messium /home/messium/.ssh
+
+RUN sed -i 's/^#Port 22/Port 2200/' /etc/ssh/sshd_config
+
+WORKDIR /app
+EXPOSE 2200-2210
+
+
+# QoL
+RUN apk add --no-cache zsh
+RUN apk add --no-cache neovim
+WORKDIR /root
+
+ENTRYPOINT ["/bin/sh", "-c", "rc-status; rc-service sshd start; tail -f /dev/null"]
+
+# COPY . .
+#
+# RUN yarn
+#
+# RUN yarn build
+#
+# ENTRYPOINT ["sh", "-c", "rc-status; rc-service sshd start; yarn start"]

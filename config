@@ -1,0 +1,15 @@
+# filepath: /etc/ssh/sshd_config
+
+# SSH Server Configuration
+
+# Allow only the specified user to SSH into the server
+AllowUsers messium
+
+# Disable root login via SSH
+PermitRootLogin no
+
+# Disable password authentication, enforcing key-based authentication
+PasswordAuthentication no
+
+# Specify the port on which the SSH server will listen
+Port 6622
